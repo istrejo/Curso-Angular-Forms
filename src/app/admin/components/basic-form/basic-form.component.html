@@ -1,8 +1,18 @@
 <div>
-  Name: {{ nameField.value }}
+  Name: {{ nameField.value }} {{ nameField.valid }}
   <input type="text" [formControl]="nameField" />
-  <button (click)="getInputValue()">Get Value</button>
+  <button [disabled]="nameField.invalid" (click)="getInputValue()">
+    Get Value
+  </button>
 </div>
+
+<p *ngIf="nameField.hasError('required') && nameField.touched">
+  <strong> This field is required </strong>
+</p>
+
+<p *ngIf="nameField.hasError('maxlength') && nameField.touched">
+  <strong> This field must include a maximum of 10 charecters </strong>
+</p>
 
 <div>
   Email: {{ emailField.value }}
@@ -50,4 +60,56 @@
     <option value="tag-5">Tag-5</option>
     <option value="tag-5">Tag-5</option>
   </select>
+</div>
+
+<div>
+  Agree: {{ agreeField.value }}
+  <input type="checkbox" [formControl]="agreeField" />
+</div>
+
+<div>
+  Gender: {{ genderField.value }} --
+  <label>
+    Male
+    <input
+      name="gender"
+      type="radio"
+      value="male"
+      [formControl]="genderField"
+    />
+  </label>
+  <label>
+    Female
+    <input
+      name="gender"
+      type="radio"
+      value="female"
+      [formControl]="genderField"
+    />
+  </label>
+  <label>
+    Other
+    <input
+      name="gender"
+      type="radio"
+      value="other"
+      [formControl]="genderField"
+    />
+  </label>
+</div>
+
+<div>
+  Zone: {{ zoneField.value }} --
+  <label>
+    Zona 1
+    <input name="zone" type="radio" value="zone-1" [formControl]="zoneField" />
+  </label>
+  <label>
+    Zona 2
+    <input name="zone" type="radio" value="zone-2" [formControl]="zoneField" />
+  </label>
+  <label>
+    Zona 3
+    <input name="zone" type="radio" value="zone-3" [formControl]="zoneField" />
+  </label>
 </div>
