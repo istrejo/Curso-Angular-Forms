@@ -1,18 +1,31 @@
 <div>
-  Name: {{ nameField.value }} {{ nameField.valid }}
-  <input type="text" [formControl]="nameField" />
+  Name: {{ nameField.value }}
+  <input
+    [class.is-valid]="isNameFieldValid"
+    [class.is-invalid]="isNameFieldInvalid"
+    type="text"
+    [formControl]="nameField"
+  />
   <button [disabled]="nameField.invalid" (click)="getInputValue()">
     Get Value
   </button>
 </div>
 
-<p *ngIf="nameField.hasError('required') && nameField.touched">
-  <strong> This field is required </strong>
-</p>
+<div class="messages" [class.active]="isNameFieldInvalid">
+  <p
+    *ngIf="nameField.hasError('required') && nameField.touched"
+    class="invalid-text"
+  >
+    <strong> This field is required </strong>
+  </p>
 
-<p *ngIf="nameField.hasError('maxlength') && nameField.touched">
-  <strong> This field must include a maximum of 10 charecters </strong>
-</p>
+  <p
+    *ngIf="nameField.hasError('maxlength') && nameField.touched"
+    class="invalid-text"
+  >
+    <strong> This field must include a maximum of 10 charecters </strong>
+  </p>
+</div>
 
 <div>
   Email: {{ emailField.value }}
