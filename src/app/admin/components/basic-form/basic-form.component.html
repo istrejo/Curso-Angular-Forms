@@ -1,0 +1,53 @@
+<div>
+  Name: {{ nameField.value }}
+  <input type="text" [formControl]="nameField" />
+  <button (click)="getInputValue()">Get Value</button>
+</div>
+
+<div>
+  Email: {{ emailField.value }}
+  <input type="email" [formControl]="emailField" />
+</div>
+
+<div>
+  Phone: {{ phoneField.value }}
+  <input type="tel" [formControl]="phoneField" />
+</div>
+
+<div>
+  Color: {{ colorField.value }}
+  <input type="color" [formControl]="colorField" />
+</div>
+
+<div>
+  Date: {{ dateField.value }}
+  <input type="date" [formControl]="dateField" />
+</div>
+
+<div>
+  Age: {{ ageField.value }}
+  <input type="number" [formControl]="ageField" />
+</div>
+
+<div>
+  Category: {{ categoryField.value }}
+  <select [formControl]="categoryField">
+    <option value="category-1">Category1</option>
+    <option value="category-2">Category2</option>
+    <option value="category-3">Category3</option>
+    <option value="category-4">Category4</option>
+    <option value="category-5">Category5</option>
+  </select>
+</div>
+
+<div>
+  Tag: {{ tagField.value }}
+  <select [formControl]="tagField" multiple>
+    <option value="tag-1">Tag-1</option>
+    <option value="tag-2">Tag-2</option>
+    <option value="tag-3">Tag-3</option>
+    <option value="tag-4">Tag-4</option>
+    <option value="tag-5">Tag-5</option>
+    <option value="tag-5">Tag-5</option>
+  </select>
+</div>
