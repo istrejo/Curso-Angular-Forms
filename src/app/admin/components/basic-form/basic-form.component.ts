@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { ErrorStateMatcher } from '@angular/material/core';
+
 @Component({
   selector: 'app-basic-form',
   templateUrl: './basic-form.component.html',
@@ -45,10 +47,16 @@ export class BasicFormComponent implements OnInit {
         ],
       }),
       email: ['', [Validators.required, Validators.email]],
-      phone: [0, Validators.required],
+      phone: [
+        0,
+        [
+          Validators.required,
+          Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/),
+        ],
+      ],
       color: ['#000000'],
       date: [''],
-      age: [12, [Validators.required, Validators.min(18), Validators.max(100)]],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
       category: [''],
       tag: [''],
       agree: [false, [Validators.requiredTrue]],

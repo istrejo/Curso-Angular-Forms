@@ -1,184 +1,163 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div formGroupName="fullName">
-    <div>
-      Name: {{ nameField.value }}
-      <input
-        [class.is-valid]="isNameFieldValid"
-        [class.is-invalid]="isNameFieldInvalid"
-        type="text"
-        formControlName="name"
-      />
+  <mat-card>
+    <div formGroupName="fullName" class="form-group">
+      <mat-form-field appearance="outline" class="name-input">
+        <mat-label>First name:</mat-label>
+        <input matInput type="text" formControlName="name" />
+        <mat-icon matSuffix color="primary" *ngIf="isNameFieldValid"
+          >done</mat-icon
+        >
+        <mat-icon matSuffix color="error" *ngIf="isNameFieldInvalid"
+          >close</mat-icon
+        >
+        <mat-error *ngIf="nameField.hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error
+          *ngIf="
+            nameField.hasError('pattern') &&
+            (nameField.touched || nameField.dirty)
+          "
+        >
+          This name is invalid
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="name-input">
+        <mat-label>Last name:</mat-label>
+        <input matInput type="text" formControlName="last" />
+        <mat-icon matSuffix color="primary" *ngIf="isLastFieldValid"
+          >done</mat-icon
+        >
+        <mat-icon matSuffix color="error" *ngIf="isLastFieldInvalid"
+          >close</mat-icon
+        >
+        <mat-error *ngIf="lastField.hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="lastField.hasError('pattern')">
+          This name is invalid
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <div
-      class="messages"
-      *ngIf="(nameField.invalid && nameField.touched) || nameField.dirty"
-    >
-      <p *ngIf="nameField.hasError('required')" class="invalid-text">
-        <strong> This field is required </strong>
-      </p>
-      <p *ngIf="nameField.hasError('pattern')" class="invalid-text">
-        <strong> This name is invalid </strong>
-      </p>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        placeholder="Ex. pat@example.com"
+      />
+      <mat-error
+        *ngIf="emailField.hasError('email') && !emailField.hasError('required')"
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailField.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Phone input -->
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input
+        type="tel"
+        matInput
+        formControlName="phone"
+        placeholder="+58-1234567"
+      />
+      <mat-error *ngIf="phoneField.hasError('pattern')">
+        this number is <strong>invalid</strong>
+      </mat-error>
+      <mat-error *ngIf="phoneField.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-group">
+      <!-- Date picker input -->
+      <mat-form-field appearance="outline" class="date-picker">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Color input -->
+      <mat-form-field appearance="outline" class="color-input">
+        <mat-label>Color</mat-label>
+        <input
+          type="color"
+          matInput
+          formControlName="color"
+          placeholder="#000000"
+        />
+      </mat-form-field>
     </div>
 
-    <div>
-      Last name: {{ lastField.value }}
-      <input
-        [class.is-valid]="isLastFieldValid"
-        [class.is-invalid]="isLastFieldInvalid"
-        type="text"
-        formControlName="last"
-      />
+    <mat-form-field appearance="outline">
+      <mat-label>Age</mat-label>
+      <input type="number" matInput formControlName="age" placeholder="18" />
+      <mat-error *ngIf="ageField.hasError('required')">
+        This field is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="ageField.hasError('min')">
+        You must be <strong>18</strong> years of age or older
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Select a category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="category-1">Category 1</mat-option>
+          <mat-option value="category-2">Category 2</mat-option>
+          <mat-option value="category-3">Category 3</mat-option>
+          <mat-option value="category-4">Category 4</mat-option>
+          <mat-option value="category-5">Category 5</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Select a tag</mat-label>
+        <mat-select formControlName="tag">
+          <mat-option value="tag-1">Tag 1</mat-option>
+          <mat-option value="tag-2">Tag 2</mat-option>
+          <mat-option value="tag-3">Tag 3</mat-option>
+          <mat-option value="tag-4">Tag 4</mat-option>
+          <mat-option value="tag-5">Tag 5</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
-    <div
-      class="messages"
-      *ngIf="(lastField.invalid && lastField.touched) || lastField.dirty"
-    >
-      <p *ngIf="lastField.hasError('required')" class="invalid-text">
-        <strong> This field is required </strong>
-      </p>
-      <p *ngIf="lastField.hasError('pattern')" class="invalid-text">
-        <strong> This name is invalid </strong>
-      </p>
+    <div class="margin-bottom">
+      <mat-checkbox formControlName="agree"> Agree </mat-checkbox>
+      <mat-error *ngIf="agreeField.hasError('required') && agreeField.touched">
+        This field is required
+      </mat-error>
     </div>
-  </div>
 
-  <div>
-    Email: {{ emailField.value }}
-    <input type="email" formControlName="email" />
-  </div>
-
-  <div class="messages" *ngIf="emailField.invalid && emailField.touched">
-    <p *ngIf="emailField.hasError('required')" class="invalid-text">
-      <strong> This field is required </strong>
-    </p>
-    <p *ngIf="emailField.hasError('email')" class="invalid-text">
-      <strong> This email is invalid </strong>
-    </p>
-  </div>
-
-  <div>
-    Phone: {{ phoneField.value }}
-    <input type="tel" formControlName="phone" />
-  </div>
-
-  <div class="messages" *ngIf="phoneField.invalid && phoneField.touched">
-    <p
-      *ngIf="phoneField.hasError('required') && phoneField.touched"
-      class="invalid-text"
+    <mat-radio-group
+      aria-label="Select an option"
+      class="margin-bottom"
+      formControlName="gender"
     >
-      <strong> This field is required </strong>
-    </p>
-  </div>
-
-  <div>
-    Color: {{ colorField.value }}
-    <input type="color" formControlName="color" />
-  </div>
-
-  <div>
-    Date: {{ dateField.value }}
-    <input type="date" formControlName="date" />
-  </div>
-
-  <div>
-    Age: {{ ageField.value }}
-    <input type="number" formControlName="age" />
-  </div>
-
-  <div class="messages" *ngIf="ageField.invalid && ageField.touched">
-    <p
-      *ngIf="ageField.hasError('required') && ageField.touched"
-      class="invalid-text"
+      <mat-label>Gender - </mat-label>
+      <mat-radio-button value="male">Male</mat-radio-button>
+      <mat-radio-button value="female">Female</mat-radio-button>
+      <mat-radio-button value="other">Other</mat-radio-button>
+    </mat-radio-group>
+    <mat-radio-group
+      aria-label="Select an option"
+      class="margin-bottom"
+      formControlName="zone"
     >
-      <strong> This field is required </strong>
-    </p>
-    <p
-      *ngIf="ageField.hasError('min') && ageField.touched"
-      class="invalid-text"
-    >
-      <strong> You must be 18 years of age or older </strong>
-    </p>
-  </div>
+      <mat-label>Zone - </mat-label>
+      <mat-radio-button value="zone-1">zone-1</mat-radio-button>
+      <mat-radio-button value="zone-2">zone-2</mat-radio-button>
+      <mat-radio-button value="zone-3">zone-3</mat-radio-button>
+    </mat-radio-group>
 
-  <div>
-    Category: {{ categoryField.value }}
-    <select formControlName="category">
-      <option value="category-1">Category1</option>
-      <option value="category-2">Category2</option>
-      <option value="category-3">Category3</option>
-      <option value="category-4">Category4</option>
-      <option value="category-5">Category5</option>
-    </select>
-  </div>
-
-  <div>
-    Tag: {{ tagField.value }}
-    <select formControlName="tag" multiple>
-      <option value="tag-1">Tag-1</option>
-      <option value="tag-2">Tag-2</option>
-      <option value="tag-3">Tag-3</option>
-      <option value="tag-4">Tag-4</option>
-      <option value="tag-5">Tag-5</option>
-    </select>
-  </div>
-
-  <div>
-    Agree: {{ agreeField.value }}
-    <input type="checkbox" formControlName="agree" />
-  </div>
-
-  <div class="messages" *ngIf="agreeField.invalid && agreeField.touched">
-    <p
-      *ngIf="agreeField.hasError('required') && agreeField.touched"
-      class="invalid-text"
-    >
-      <strong> This field is required </strong>
-    </p>
-  </div>
-
-  <div>
-    Gender: {{ genderField.value }} --
-    <label>
-      Male
-      <input name="gender" type="radio" value="male" formControlName="gender" />
-    </label>
-    <label>
-      Female
-      <input
-        name="gender"
-        type="radio"
-        value="female"
-        formControlName="gender"
-      />
-    </label>
-    <label>
-      Other
-      <input
-        name="gender"
-        type="radio"
-        value="other"
-        formControlName="gender"
-      />
-    </label>
-  </div>
-
-  <div>
-    Zone: {{ zoneField.value }} --
-    <label>
-      Zona 1
-      <input name="zone" type="radio" value="zone-1" formControlName="zone" />
-    </label>
-    <label>
-      Zona 2
-      <input name="zone" type="radio" value="zone-2" formControlName="zone" />
-    </label>
-    <label>
-      Zona 3
-      <input name="zone" type="radio" value="zone-3" formControlName="zone" />
-    </label>
-  </div>
-  <div><button type="submit">Submit</button></div>
+    <button mat-raised-button color="primary" type="s">Submit</button>
+  </mat-card>
 </form>

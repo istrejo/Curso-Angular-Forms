@@ -19,49 +19,38 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+const components = [
+  CommonModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatBadgeModule,
+  MatCardModule,
+  MatInputModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatTableModule,
+  MatSidenavModule,
+  MatListModule,
+  MatGridListModule,
+  MatMenuModule,
+  MatSortModule,
+  LayoutModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatStepperModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCheckboxModule,
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatBadgeModule,
-    MatCardModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatTableModule,
-    MatSidenavModule,
-    MatListModule,
-    MatGridListModule,
-    MatMenuModule,
-    MatSortModule,
-    LayoutModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatStepperModule
-  ],
-  exports: [
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatBadgeModule,
-    MatCardModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatTableModule,
-    MatSidenavModule,
-    MatListModule,
-    MatGridListModule,
-    MatMenuModule,
-    MatSortModule,
-    LayoutModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatStepperModule
-  ]
+  imports: [components],
+  exports: [components],
 })
-export class MaterialModule { }
+export class MaterialModule {}
