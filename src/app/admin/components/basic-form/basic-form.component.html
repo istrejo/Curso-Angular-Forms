@@ -1,128 +1,125 @@
-<div>
-  Name: {{ nameField.value }}
-  <input
-    [class.is-valid]="isNameFieldValid"
-    [class.is-invalid]="isNameFieldInvalid"
-    type="text"
-    [formControl]="nameField"
-  />
-  <button [disabled]="nameField.invalid" (click)="getInputValue()">
-    Get Value
-  </button>
-</div>
-
-<div class="messages" [class.active]="isNameFieldInvalid">
-  <p
-    *ngIf="nameField.hasError('required') && nameField.touched"
-    class="invalid-text"
-  >
-    <strong> This field is required </strong>
-  </p>
-
-  <p
-    *ngIf="nameField.hasError('maxlength') && nameField.touched"
-    class="invalid-text"
-  >
-    <strong> This field must include a maximum of 10 charecters </strong>
-  </p>
-</div>
-
-<div>
-  Email: {{ emailField.value }}
-  <input type="email" [formControl]="emailField" />
-</div>
-
-<div>
-  Phone: {{ phoneField.value }}
-  <input type="tel" [formControl]="phoneField" />
-</div>
-
-<div>
-  Color: {{ colorField.value }}
-  <input type="color" [formControl]="colorField" />
-</div>
-
-<div>
-  Date: {{ dateField.value }}
-  <input type="date" [formControl]="dateField" />
-</div>
-
-<div>
-  Age: {{ ageField.value }}
-  <input type="number" [formControl]="ageField" />
-</div>
-
-<div>
-  Category: {{ categoryField.value }}
-  <select [formControl]="categoryField">
-    <option value="category-1">Category1</option>
-    <option value="category-2">Category2</option>
-    <option value="category-3">Category3</option>
-    <option value="category-4">Category4</option>
-    <option value="category-5">Category5</option>
-  </select>
-</div>
-
-<div>
-  Tag: {{ tagField.value }}
-  <select [formControl]="tagField" multiple>
-    <option value="tag-1">Tag-1</option>
-    <option value="tag-2">Tag-2</option>
-    <option value="tag-3">Tag-3</option>
-    <option value="tag-4">Tag-4</option>
-    <option value="tag-5">Tag-5</option>
-    <option value="tag-5">Tag-5</option>
-  </select>
-</div>
-
-<div>
-  Agree: {{ agreeField.value }}
-  <input type="checkbox" [formControl]="agreeField" />
-</div>
-
-<div>
-  Gender: {{ genderField.value }} --
-  <label>
-    Male
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    Name: {{ nameField.value }}
     <input
-      name="gender"
-      type="radio"
-      value="male"
-      [formControl]="genderField"
+      [class.is-valid]="isNameFieldValid"
+      [class.is-invalid]="isNameFieldInvalid"
+      type="text"
+      formControlName="name"
     />
-  </label>
-  <label>
-    Female
-    <input
-      name="gender"
-      type="radio"
-      value="female"
-      [formControl]="genderField"
-    />
-  </label>
-  <label>
-    Other
-    <input
-      name="gender"
-      type="radio"
-      value="other"
-      [formControl]="genderField"
-    />
-  </label>
-</div>
+    <button [disabled]="nameField.invalid" (click)="getInputValue()">
+      Get Value
+    </button>
+  </div>
 
-<div>
-  Zone: {{ zoneField.value }} --
-  <label>
-    Zona 1
-    <input name="zone" type="radio" value="zone-1" [formControl]="zoneField" />
-  </label>
-  <label>
-    Zona 2
-    <input name="zone" type="radio" value="zone-2" [formControl]="zoneField" />
-  </label>
-  <label>
-    Zona 3
-    <input name="zone" type="radio" value="zone-3" [formControl]="zoneField" />
-  </label>
-</div>
+  <div class="messages" [class.active]="isNameFieldInvalid">
+    <p
+      *ngIf="nameField.hasError('required') && nameField.touched"
+      class="invalid-text"
+    >
+      <strong> This field is required </strong>
+    </p>
+
+    <p
+      *ngIf="nameField.hasError('maxlength') && nameField.touched"
+      class="invalid-text"
+    >
+      <strong> This field must include a maximum of 10 charecters </strong>
+    </p>
+  </div>
+
+  <div>
+    Email: {{ emailField.value }}
+    <input type="email" formControlName="email" />
+  </div>
+
+  <div>
+    Phone: {{ phoneField.value }}
+    <input type="tel" formControlName="phone" />
+  </div>
+
+  <div>
+    Color: {{ colorField.value }}
+    <input type="color" formControlName="color" />
+  </div>
+
+  <div>
+    Date: {{ dateField.value }}
+    <input type="date" formControlName="date" />
+  </div>
+
+  <div>
+    Age: {{ ageField.value }}
+    <input type="number" formControlName="age" />
+  </div>
+
+  <div>
+    Category: {{ categoryField.value }}
+    <select formControlName="category">
+      <option value="category-1">Category1</option>
+      <option value="category-2">Category2</option>
+      <option value="category-3">Category3</option>
+      <option value="category-4">Category4</option>
+      <option value="category-5">Category5</option>
+    </select>
+  </div>
+
+  <div>
+    Tag: {{ tagField.value }}
+    <select formControlName="tag" multiple>
+      <option value="tag-1">Tag-1</option>
+      <option value="tag-2">Tag-2</option>
+      <option value="tag-3">Tag-3</option>
+      <option value="tag-4">Tag-4</option>
+      <option value="tag-5">Tag-5</option>
+    </select>
+  </div>
+
+  <div>
+    Agree: {{ agreeField.value }}
+    <input type="checkbox" formControlName="agree" />
+  </div>
+
+  <div>
+    Gender: {{ genderField.value }} --
+    <label>
+      Male
+      <input name="gender" type="radio" value="male" formControlName="gender" />
+    </label>
+    <label>
+      Female
+      <input
+        name="gender"
+        type="radio"
+        value="female"
+        formControlName="gender"
+      />
+    </label>
+    <label>
+      Other
+      <input
+        name="gender"
+        type="radio"
+        value="other"
+        formControlName="gender"
+      />
+    </label>
+  </div>
+
+  <div>
+    Zone: {{ zoneField.value }} --
+    <label>
+      Zona 1
+      <input name="zone" type="radio" value="zone-1" formControlName="zone" />
+    </label>
+    <label>
+      Zona 2
+      <input name="zone" type="radio" value="zone-2" formControlName="zone" />
+    </label>
+    <label>
+      Zona 3
+      <input name="zone" type="radio" value="zone-3" formControlName="zone" />
+    </label>
+  </div>
+  <div><button type="submit">Submit</button></div>
+</form>
