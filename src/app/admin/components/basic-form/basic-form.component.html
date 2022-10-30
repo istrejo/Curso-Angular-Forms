@@ -1,31 +1,48 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div>
-    Name: {{ nameField.value }}
-    <input
-      [class.is-valid]="isNameFieldValid"
-      [class.is-invalid]="isNameFieldInvalid"
-      type="text"
-      formControlName="name"
-    />
-    <button [disabled]="nameField.invalid" (click)="getInputValue()">
-      Get Value
-    </button>
-  </div>
+  <div formGroupName="fullName">
+    <div>
+      Name: {{ nameField.value }}
+      <input
+        [class.is-valid]="isNameFieldValid"
+        [class.is-invalid]="isNameFieldInvalid"
+        type="text"
+        formControlName="name"
+      />
+    </div>
 
-  <div class="messages" [class.active]="isNameFieldInvalid">
-    <p
-      *ngIf="nameField.hasError('required') && nameField.touched"
-      class="invalid-text"
+    <div
+      class="messages"
+      *ngIf="(nameField.invalid && nameField.touched) || nameField.dirty"
     >
-      <strong> This field is required </strong>
-    </p>
+      <p *ngIf="nameField.hasError('required')" class="invalid-text">
+        <strong> This field is required </strong>
+      </p>
+      <p *ngIf="nameField.hasError('pattern')" class="invalid-text">
+        <strong> This name is invalid </strong>
+      </p>
+    </div>
 
-    <p
-      *ngIf="nameField.hasError('maxlength') && nameField.touched"
-      class="invalid-text"
+    <div>
+      Last name: {{ lastField.value }}
+      <input
+        [class.is-valid]="isLastFieldValid"
+        [class.is-invalid]="isLastFieldInvalid"
+        type="text"
+        formControlName="last"
+      />
+    </div>
+
+    <div
+      class="messages"
+      *ngIf="(lastField.invalid && lastField.touched) || lastField.dirty"
     >
-      <strong> This field must include a maximum of 10 charecters </strong>
-    </p>
+      <p *ngIf="lastField.hasError('required')" class="invalid-text">
+        <strong> This field is required </strong>
+      </p>
+      <p *ngIf="lastField.hasError('pattern')" class="invalid-text">
+        <strong> This name is invalid </strong>
+      </p>
+    </div>
   </div>
 
   <div>
@@ -33,9 +50,27 @@
     <input type="email" formControlName="email" />
   </div>
 
+  <div class="messages" *ngIf="emailField.invalid && emailField.touched">
+    <p *ngIf="emailField.hasError('required')" class="invalid-text">
+      <strong> This field is required </strong>
+    </p>
+    <p *ngIf="emailField.hasError('email')" class="invalid-text">
+      <strong> This email is invalid </strong>
+    </p>
+  </div>
+
   <div>
     Phone: {{ phoneField.value }}
     <input type="tel" formControlName="phone" />
+  </div>
+
+  <div class="messages" *ngIf="phoneField.invalid && phoneField.touched">
+    <p
+      *ngIf="phoneField.hasError('required') && phoneField.touched"
+      class="invalid-text"
+    >
+      <strong> This field is required </strong>
+    </p>
   </div>
 
   <div>
@@ -51,6 +86,21 @@
   <div>
     Age: {{ ageField.value }}
     <input type="number" formControlName="age" />
+  </div>
+
+  <div class="messages" *ngIf="ageField.invalid && ageField.touched">
+    <p
+      *ngIf="ageField.hasError('required') && ageField.touched"
+      class="invalid-text"
+    >
+      <strong> This field is required </strong>
+    </p>
+    <p
+      *ngIf="ageField.hasError('min') && ageField.touched"
+      class="invalid-text"
+    >
+      <strong> You must be 18 years of age or older </strong>
+    </p>
   </div>
 
   <div>
@@ -78,6 +128,15 @@
   <div>
     Agree: {{ agreeField.value }}
     <input type="checkbox" formControlName="agree" />
+  </div>
+
+  <div class="messages" *ngIf="agreeField.invalid && agreeField.touched">
+    <p
+      *ngIf="agreeField.hasError('required') && agreeField.touched"
+      class="invalid-text"
+    >
+      <strong> This field is required </strong>
+    </p>
   </div>
 
   <div>

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -8,36 +13,60 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./basic-form.component.scss'],
 })
 export class BasicFormComponent implements OnInit {
-  form: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    color: new FormControl('#fe3232'),
-    date: new FormControl(''),
-    age: new FormControl(12),
-    category: new FormControl(''),
-    tag: new FormControl(''),
-    agree: new FormControl(''),
-    gender: new FormControl(''),
-    zone: new FormControl(''),
-  });
+  form: FormGroup;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {
+    this.form = this.initForm();
+  }
 
   ngOnInit(): void {
     // this.nameField.valueChanges.subscribe(console.log);
+    // this.form.valueChanges.subscribe(console.log);
   }
 
-  getInputValue() {
-    console.log(this.nameField.value);
+  private initForm(): FormGroup {
+    return this.fb.group({
+      fullName: this.fb.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z]+$/),
+          ],
+        ],
+        last: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z]+$/),
+          ],
+        ],
+      }),
+      email: ['', [Validators.required, Validators.email]],
+      phone: [0, Validators.required],
+      color: ['#000000'],
+      date: [''],
+      age: [12, [Validators.required, Validators.min(18), Validators.max(100)]],
+      category: [''],
+      tag: [''],
+      agree: [false, [Validators.requiredTrue]],
+      gender: [''],
+      zone: [''],
+    });
   }
 
   save() {
-    console.log(this.form.value);
+    if (this.form.valid) {
+      console.log(this.form.value);
+    } else {
+      this.form.markAllAsTouched();
+    }
   }
 
   get nameField() {
-    return this.form.get('name');
+    return this.form.get('fullName.name');
   }
 
   get isNameFieldValid() {
@@ -46,6 +75,18 @@ export class BasicFormComponent implements OnInit {
 
   get isNameFieldInvalid() {
     return this.nameField.touched && this.nameField.invalid;
+  }
+
+  get lastField() {
+    return this.form.get('fullName.last');
+  }
+
+  get isLastFieldValid() {
+    return this.lastField.touched && this.lastField.valid;
+  }
+
+  get isLastFieldInvalid() {
+    return this.lastField.touched && this.lastField.invalid;
   }
 
   get emailField() {
