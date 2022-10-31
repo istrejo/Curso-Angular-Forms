@@ -43,12 +43,19 @@
           <mat-form-field>
             <mat-label>Confirm Password</mat-label>
             <input
-              placeholder="password"
-              formControlName="password"
+              placeholder="Confirm password"
+              formControlName="confirmPassword"
               matInput
               type="password"
             />
           </mat-form-field>
+          <mat-error
+            *ngIf="
+              form.hasError('match_password') && confirmPasswordField.touched
+            "
+          >
+            password does not match
+          </mat-error>
         </div>
       </div>
     </mat-card-content>
