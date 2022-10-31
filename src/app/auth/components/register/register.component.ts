@@ -39,11 +39,26 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required]],
         password: ['', [Validators.required, MyValidators.validatePassword]],
         confirmPassword: ['', [Validators.required]],
+        type: ['company', [Validators.required]],
+        companyName: ['', [Validators.required]],
       },
       {
         validators: MyValidators.matchPasswords,
       }
     );
+
+    this.typeField.valueChanges.subscribe((value) => {
+      console.log(
+        '🚀 ~ file: register.component.ts ~ line 52 ~ RegisterComponent ~ buildForm ~ value',
+        value
+      );
+      if (value === 'company') {
+        this.companyNameField.setValidators([Validators.required]);
+      } else {
+        this.companyNameField.setValidators(null);
+      }
+      this.companyNameField.updateValueAndValidity();
+    });
   }
 
   get passwordField() {
@@ -51,5 +66,11 @@ export class RegisterComponent implements OnInit {
   }
   get confirmPasswordField() {
     return this.form.get('confirmPassword');
+  }
+  get typeField() {
+    return this.form.get('type');
+  }
+  get companyNameField() {
+    return this.form.get('companyName');
   }
 }
